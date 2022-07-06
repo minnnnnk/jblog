@@ -27,4 +27,12 @@ public class UserDao {
 		
 		return uId;
 	}
+	
+	public UserVo loginUser(UserVo userVo) {
+		System.out.println("UserDao > loginUser");
+		
+		UserVo uVo =sqlSession.selectOne("user.loginUser", userVo);
+		
+		return uVo;
+	}
 }

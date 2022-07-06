@@ -23,13 +23,27 @@ public class UserService {
 	public int userJoin(UserVo userVo,BlogVo blogVo) {
 		System.out.println("userService > userJoin");
 		
+		
 		userDao.userJoin(userVo);
-		System.out.println(blogVo);
+		
+		blogVo.setBlogTitle(userVo.getUserName()+"의 블로그입니다");
+		blogVo.setLogoFile("/assets/images/spring-logo.jpg");
 		
 		int count = blogDao.blogCreate(blogVo);
 		
+		System.out.println(userVo);
+		System.out.println(blogVo);
+		
 		return count;
 	}
+	
+	public UserVo loginUser(UserVo userVo) {
+		System.out.println("userService > loginUser");
+		UserVo uVo  = userDao.loginUser(userVo);
+		
+		return uVo;
+	}
+	
 	
 	public boolean userIdCheck(String id){
 		System.out.println("userService > userIdCheck");

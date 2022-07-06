@@ -17,4 +17,15 @@
 		]]>
 	</select>
 	
+	<select id="loginUser" resultType="UserVo" parameterType="UserVo">
+		<![CDATA[
+			select  userNo
+					,id
+	       			,userName
+			from users
+			where id = #{id}
+			and password = #{password}
+		]]>
+	</select>
+	
 </mapper>
