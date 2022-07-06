@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="blog">
+
+	<!-- 쿼리문 -->
+	<select id="getUser" resultType="BlogVo" parameterType="String">
+		<![CDATA[
+			select  b.id id
+			        ,userName
+			        ,blogTitle
+			        ,logoFile
+			from users u, blog b
+			where u.id = b.id
+			and 
+		]]>
+	</select>
+	
+	<insert id="blogInsert" parameterType="BlogVo">
+		<![CDATA[
+			insert into blog
+			values(#{id},#{userName},#{logoFile})
+		]]>
+	</insert>
+	
+</mapper>

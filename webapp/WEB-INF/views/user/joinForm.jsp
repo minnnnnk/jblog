@@ -8,6 +8,7 @@
 <title>JBlog</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
 
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery/jquery-1.12.4.js"></script>
 </head>
 <body>
 	<div id="center-content">
@@ -25,12 +26,12 @@
 					</colgroup>
 		      		<tr>
 		      			<td><label for="txtId">아이디</label></td>
-		      			<td><input id="txtId" type="text" name="id"></td>
+		      			<td><input id="txtId" type="text" name="id" value=""></td>
 		      			<td><button id="btnIdCheck" type="button">아이디체크</button></td>
 		      		</tr>
 		      		<tr>
 		      			<td></td>
-		      			<td id="tdMsg" colspan="2">사용할 수 있는 아이디 입니다.</td>
+		      			<td id="tdMsg" colspan="2"></td>
 		      		</tr> 
 		      		<tr>
 		      			<td><label for="txtPassword">패스워드</label> </td>
@@ -66,5 +67,38 @@
 
 </body>
 
+<script type="text/javascript">
+
+$("#btnIdCheck").on("click",function(){
+	console.log("아이디버튼클릭");
+	
+	var id = $("#txtId").val();
+	
+	console.log(id);
+	
+	$.ajax({
+		url : "${pageContext.request.contextPath}/user/check",		
+		type : "post",
+		contentType : "application/json",
+		data : JSON.stringify(id),
+		dataType : "json",
+		success : function(result){
+			
+			console.log(result);
+			if(result == true){
+				$("#tdMsg").text("다른 아이디로 가입해 주세요.");
+			}else{
+				$("#tdMsg").text("사용할 수 있는 아이디 입니다.");
+			}
+			
+		},
+		error : function(XHR, status, error) {
+			console.error(status + " : " + error);
+		}
+	});
+
+});
+
+</script>
 
 </html>

@@ -9,4 +9,12 @@
 			values(seq_users_no.nextval,#{id},#{userName},#{password},sysdate)
 		]]>
 	</insert>
+	
+	<select id="userIdCheck" resultType="String">
+		<![CDATA[
+			select id
+			from users
+		]]>
+	</select>
+	
 </mapper>
