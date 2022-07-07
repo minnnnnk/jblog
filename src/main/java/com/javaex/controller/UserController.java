@@ -82,4 +82,12 @@ public class UserController {
 	}
 	
 	
+	@RequestMapping(value="/logout",method= {RequestMethod.GET,RequestMethod.POST})
+	public String logout(HttpSession session) {
+		System.out.println("UserController > logout");
+		session.removeAttribute("authUser");
+		session.invalidate();
+		
+		return "redirect:/blog/{id}";
+	}
 }

@@ -33,7 +33,7 @@
 		      		</tr> 
 		      		<tr>
 		      			<td colspan="2" id="tdMsg" colspan="2">
-		      				<c:if test="${result=fail}"><span>아이디 또는 비번을 확인해 주세요.</span></c:if>
+		      				<c:if test="${param.result =='fail'}"><span>아이디 또는 비번을 확인해 주세요.</span></c:if>
 		      			</td>
 		      		</tr> 
 		      	</table>

@@ -35,4 +35,14 @@ public class UserDao {
 		
 		return uVo;
 	}
+	
+	public UserVo getUser(String id) {
+		System.out.println("UserDao > getUser");
+		System.out.println(id);
+		
+		UserVo getUser = sqlSession.selectOne("user.getUser", id);
+		System.out.println(getUser);
+		
+		return getUser;
+	}
 }

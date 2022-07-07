@@ -49,6 +49,9 @@ public class UserService {
 		System.out.println("userService > userIdCheck");
 		List<String> idList = userDao.userCheck();
 		System.out.println(id);
+		
+		id = id.substring(1,id.length()-1); //"" 빼주는 작업
+		
 		for(int i =0; i<idList.size(); i++) {
 			String uId = idList.get(i);
 			System.out.println(uId);
