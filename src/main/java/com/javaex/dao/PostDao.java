@@ -1,5 +1,7 @@
 package com.javaex.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -12,10 +14,18 @@ public class PostDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public PostVo getPost(int cateNo){
+	public List<PostVo> getPost(String id){
 		System.out.println("PostDao > getPost");
-		PostVo pVo = sqlSession.selectOne("post.getPost", cateNo);
+		List<PostVo> pList = sqlSession.selectList("post.getPost", id);
 		
-		return pVo;
+		return pList;
+	}
+	
+	public int addPost(PostVo postVo) {
+		System.out.println("PostDao > addPost");
+		
+		int count = sqlSession.insert("post.addPost", postVo);
+		
+		return count;
 	}
 }

@@ -28,6 +28,8 @@ public class BlogController {
 		System.out.println(id);
 		Map<String,Object> bMap = blogService.blogList(id);
 		
+		model.addAttribute("cList", bMap.get("cList"));
+		model.addAttribute("pList", bMap.get("pList"));
 		
 		model.addAttribute("bMap", bMap);
 		
@@ -38,8 +40,11 @@ public class BlogController {
 	public String blogBasic(Model model,@PathVariable("id") String id) {
 		System.out.println("BlogController >  blogBasic");
 		Map<String,Object> bMap = blogService.blogList(id);
+
+		
 		
 		model.addAttribute("bMap", bMap);
+
 		
 		return "/blog/admin/blog-admin-basic";
 	}

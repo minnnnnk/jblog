@@ -17,8 +17,15 @@ public class CategoryDao {
 	public List<CategoryVo> getCategory(String id){
 		System.out.println("CategoryDao > getCategory");
 		List<CategoryVo>  cList = sqlSession.selectList("category.getCategory", id);
-		
+		System.out.println(cList);
 		return cList;
+	}
+	
+	public CategoryVo getCateOne(String id) {
+		System.out.println("CategoryDao > getCateOne");
+		CategoryVo cVo = sqlSession.selectOne("category.getCategory",id);
+		
+		return cVo;
 	}
 	
 	public int addCategory(CategoryVo cateVo) {

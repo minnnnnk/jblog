@@ -4,7 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -15,11 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.javaex.dao.BlogDao;
 import com.javaex.dao.CategoryDao;
 import com.javaex.dao.PostDao;
-import com.javaex.dao.UserDao;
 import com.javaex.vo.BlogVo;
 import com.javaex.vo.CategoryVo;
 import com.javaex.vo.PostVo;
-import com.javaex.vo.UserVo;
 
 @Service
 public class BlogService {
@@ -27,7 +25,11 @@ public class BlogService {
 	@Autowired
 	private BlogDao blogDao;
 	
+	@Autowired 
+	private CategoryDao cateDao;
 	
+	@Autowired
+	private PostDao postDao;
 	
 	public Map<String,Object> blogList(String id){
 		System.out.println("BlogService > blogList");
@@ -35,6 +37,13 @@ public class BlogService {
 		
 		//블로그값 가져오기
 		Map<String,Object> bMap = blogDao.getBlog(id);
+		
+		List<CategoryVo> cList = cateDao.getCategory(id);
+		
+		List<PostVo> pList =  postDao.getPost(id);
+		
+		bMap.put("cList", cList);
+		bMap.put("pList", pList);
 		
 		System.out.println(bMap);
 		

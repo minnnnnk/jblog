@@ -26,7 +26,7 @@ public class BlogDao {
 	public Map<String,Object> getBlog(String id) {
 		System.out.println("BlogDao > getBlog");
 		Map<String,Object> bMap =sqlSession.selectOne("blog.getUser", id);
-		System.out.println(bMap);
+		
 		return bMap;
 	}
 	

@@ -2,16 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="post">
 		
-		<select id="getPost" resultType="PostVo" parameterType="int">
+		<select id="getPost" resultType="PostVo" parameterType="String">
 			<![CDATA[
-				select  postNo
-				        ,cateNo
-				        ,postTitle
-				        ,postContent
-				        ,regDate
-				from post
-				where cateNo = #{cateNo}
+				select  p.postNo
+				        ,c.cateNo
+				        ,p.postTitle
+				        ,p.postContent
+				        ,p.regDate
+				        ,c.id
+				from post p, category c
+				where p.cateNo = c.cateno
+				and id = #{id}
 			]]>
 		</select>
+		
+		<insert id="addPost" parameterType="PostVo">
+			<![CDATA[
+				insert into post
+				values(seq_post_no.nextval,#{cateNo},#{postTitle},#{postContent},sysdate)
+			]]>
+		</insert>
 	
 </mapper>

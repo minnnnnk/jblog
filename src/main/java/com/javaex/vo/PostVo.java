@@ -8,18 +8,22 @@ public class PostVo {
 	private String postTitle;
 	private String postContent;
 	private String regDate;
+	private String id;
 	//생성자
 	public PostVo() {
 		super();
 	}
-	public PostVo(int postNo, int cateNo, String postTitle, String postContent, String regDate) {
+	
+	public PostVo(int postNo, int cateNo, String postTitle, String postContent, String regDate, String id) {
 		super();
 		this.postNo = postNo;
 		this.cateNo = cateNo;
 		this.postTitle = postTitle;
 		this.postContent = postContent;
 		this.regDate = regDate;
+		this.id = id;
 	}
+
 	//메소드 gs
 	public int getPostNo() {
 		return postNo;
@@ -51,11 +55,21 @@ public class PostVo {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
+	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 	//메소드 일반
+
 	@Override
 	public String toString() {
 		return "PostVo [postNo=" + postNo + ", cateNo=" + cateNo + ", postTitle=" + postTitle + ", postContent="
-				+ postContent + ", regDate=" + regDate + "]";
+				+ postContent + ", regDate=" + regDate + ", id=" + id + "]";
 	}
+	
 	
 }

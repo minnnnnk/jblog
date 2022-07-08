@@ -1,5 +1,6 @@
 package com.javaex.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,25 +25,44 @@ public class CategoryController {
 	@RequestMapping(value="/{id}/admin/category",method= {RequestMethod.GET,RequestMethod.POST})
 	public String blogCategory(Model model,@PathVariable("id") String id) {
 		System.out.println("BlogController >  blogCategory");
-		System.out.println(id);
-		
 		Map<String,Object> cMap = categoryService.getCategory(id);
 		
 		model.addAttribute("bMap", cMap.get("bMap"));
-		model.addAttribute("cList", cMap.get("cList"));
 		
 		return "/blog/admin/blog-admin-cate";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/{id}/admin/category/add", method= {RequestMethod.GET,RequestMethod.POST})
-	public int cateAdd(@RequestBody CategoryVo cateVo) {
+	public CategoryVo cateAdd(@RequestBody CategoryVo cateVo) {
 		System.out.println("CategoryController > cateAdd");
 		
-		int count = categoryService.addCategory(cateVo);
+		CategoryVo cVo = categoryService.addCategory(cateVo);
 		
-		return count;
+		return cVo;
 	}
 	
-
+	@RequestMapping(value="/{id}/admin/writeForm",method= {RequestMethod.GET,RequestMethod.POST})
+	public String writeForm(Model model,@PathVariable("id") String id) {
+		System.out.println("CategoryController > writeForm");
+		
+		Map<String,Object> cMap = categoryService.getCategory(id);
+		System.out.println(cMap);
+		model.addAttribute("bMap", cMap.get("bMap"));
+		model.addAttribute("cList", cMap.get("cList"));
+		
+		return "/blog/admin/blog-admin-write";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/{id}/admin/category/getList",method= {RequestMethod.GET,RequestMethod.POST})
+	public List<CategoryVo> cateList(@PathVariable("id") String id) {
+		System.out.println("CategoryController > cateList(ajax)");
+		
+		List<CategoryVo> cList = categoryService.getCategoryList(id);
+		
+		return cList;
+	}
+	
+	
 }

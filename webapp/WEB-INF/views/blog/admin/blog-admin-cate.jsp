@@ -20,9 +20,9 @@
 
 		<div id="content">
 			<ul id="admin-menu" class="clearfix">
-				<li class="tabbtn selected"><a href="${pageContext.request.contextPath}/blog/${authUser.id}/admin/basic">기본설정</a></li>
-				<li class="tabbtn"><a href="${pageContext.request.contextPath}/blog/${authUser.id}/admin/category">카테고리</a></li>
-				<li class="tabbtn"><a href="${pageContext.request.contextPath}/blog/${authUser.id}/admin/writeForm">글작성</a></li>
+				<li class="tabbtn selected"><a href="${pageContext.request.contextPath}/${bMap.ID}/admin/basic">기본설정</a></li>
+				<li class="tabbtn"><a href="${pageContext.request.contextPath}/${bMap.ID}/admin/category">카테고리</a></li>
+				<li class="tabbtn"><a href="${pageContext.request.contextPath}/${bMap.ID}/admin/writeForm">글작성</a></li>
 			</ul>
 			<!-- //admin-menu -->
 			
@@ -47,24 +47,6 @@
 		      		</thead>
 		      		<tbody id="cateList">
 		      			<!-- 리스트 영역 -->
-		      			<tr>
-							<td>1</td>
-							<td>자바프로그래밍</td>
-							<td>7</td>
-							<td>자바기초와 객체지향</td>
-						    <td class='text-center'>
-						    	<img class="btnCateDel" src="${pageContext.request.contextPath}/assets/images/delete.jpg">
-						    </td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>오라클</td>
-							<td>5</td>
-							<td>오라클 설치와 sql문</td>
-						    <td class='text-center'>
-						    	<img class="btnCateDel" src="${pageContext.request.contextPath}/assets/images/delete.jpg">
-						    </td>
-						</tr>
 						<!-- 리스트 영역 -->
 					</tbody>
 				</table>
@@ -103,34 +85,98 @@
 </body>
 
 <script type="text/javascript">
-	$("#btnAddCate").on("click",function(){
-		var cateName = $("[name='name']").val();		
-		var description = $("[name='desc']").val();
-		var id = "${bMap.ID}";
-		
-		var cateVo = {
-				id : id
-				,cateName : cateName
-				,description: description
-		}
-		console.log(cateVo);
-		
-		$.ajax({
-			url : "${pageContext.request.contextPath}/{id}/admin/category/add",		
-			type : "post",
-			contentType : "application/json",
-			data : JSON.stringify(cateVo),
-			dataType : "json",
-			success : function(result){
-				/*성공시 처리해야될 코드 작성*/
-				
-			},
-			error : function(XHR, status, error) {
-				console.error(status + " : " + error);
-			}
-		});
+$(document).ready(function(){
+	fetchList();
+})
 
-	})
+
+$("#btnAddCate").on("click",function(){
+	var cateName = $("[name='name']").val();		
+	var description = $("[name='desc']").val();
+	var id = "${bMap.ID}";
+	
+	var cateVo = {
+			id : id
+			,cateName : cateName
+			,description: description
+	}
+	console.log(cateVo);
+	
+	$.ajax({
+		url : "${pageContext.request.contextPath}/{id}/admin/category/add",		
+		type : "post",
+		contentType : "application/json",
+		data : JSON.stringify(cateVo),
+		dataType : "json",
+		success : function(cVo){
+			
+			
+			render(cVo,"up");
+			
+		    $("[name='name']").val("");	
+		    $("[name='desc']").val("");
+		},
+		error : function(XHR, status, error) {
+			console.error(status + " : " + error);
+		}
+	});
+
+})
+	
+$(".btnCateDel").on("click",function(){
+	console.log("삭제사진클릭");
+	
+	var $this = $(this);
+	console.log($this);
+	
+}) 
+
+function fetchList(){
+	$.ajax({
+		url : "${pageContext.request.contextPath}/{id}/admin/category/getList",		
+		type : "post",
+		/* contentType : "application/json",
+		data : {name: ”홍길동"}, */
+
+		dataType : "json",
+		success : function(cList){
+			/*성공시 처리해야될 코드 작성*/
+			console.log(cList);
+
+			for(var i=0; i<cList.length; i++){
+				render(cList[i],"down")	//vo --> 화면에 그린다.
+			}
+			
+		},
+		error : function(XHR, status, error) {
+			console.error(status + " : " + error);
+		}
+	});
+}
+
+//리스트 그리기
+function render(cVo, opt){
+	console.log("render()");
+	
+	var str = '';
+	str += '<tr>';
+	str += '	<td>'+${cVo.cateNo}+'</td>';
+	str += '	<td>'+${cVo.cateName }+'</td>';
+	str += '	<td>'+${cVo.pCount}+'</td>';
+	str += '	<td>'+${cVo.description}+'</td>';
+	str += '    <td class="text-center">';
+	str += '    	<img class="btnCateDel" id="del'+${cVo.cateNo}+'" src="${pageContext.request.contextPath}/assets/images/delete.jpg">';
+	str += '	</td>';
+	str += '</tr>';
+	
+	if(opt == "down"){
+        $("#listArea").append(str);   
+     }else if(opt == "up"){
+        $("#listArea").prepend(str);
+     }else{
+        console.log("opt오류");
+     }
+}
 </script>
 
 

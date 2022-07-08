@@ -9,18 +9,22 @@ public class CategoryVo {
 	private String cateName;
 	private String description;
 	private String regDate;
+	private int pCount;
 	//생성자
 	public CategoryVo() {
 		super();
 	}
-	public CategoryVo(int cateNo, String id, String cateName, String description, String regDate) {
+	
+	public CategoryVo(int cateNo, String id, String cateName, String description, String regDate, int pCount) {
 		super();
 		this.cateNo = cateNo;
 		this.id = id;
 		this.cateName = cateName;
 		this.description = description;
 		this.regDate = regDate;
+		this.pCount = pCount;
 	}
+
 	//메소드 gs
 	public int getCateNo() {
 		return cateNo;
@@ -52,11 +56,21 @@ public class CategoryVo {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
+	
+	public int getpCount() {
+		return pCount;
+	}
+
+	public void setpCount(int pCount) {
+		this.pCount = pCount;
+	}
+
 	//메소드 일반
 	@Override
 	public String toString() {
 		return "CategoryVo [cateNo=" + cateNo + ", id=" + id + ", cateName=" + cateName + ", description=" + description
-				+ ", regDate=" + regDate + "]";
+				+ ", regDate=" + regDate + ", pCount=" + pCount + "]";
 	}
+
 	
 }

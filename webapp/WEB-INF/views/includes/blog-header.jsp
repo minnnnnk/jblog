@@ -16,7 +16,7 @@
  				<!-- 로그인 후 메뉴 -->
 				<!-- 자신의 블로그일때만 관리 메뉴가 보인다. -->
 				<ul class="clearfix"> 
-					<li><a class="btn_s" href="${pageContext.request.contextPath}/${authUser.id}/admin/basic" target="_blank">내블로그 관리</a></li>
+					<li><a class="btn_s" href="${pageContext.request.contextPath}/${authUser.id}/admin/basic">내블로그 관리</a></li>
 					<li><a class="btn_s" href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
 				</ul>
  			</c:otherwise>

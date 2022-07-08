@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.javaex.dao.BlogDao;
 import com.javaex.dao.CategoryDao;
-import com.javaex.vo.BlogVo;
 import com.javaex.vo.CategoryVo;
 
 @Service
@@ -17,19 +16,23 @@ public class CategoryService {
 
 	@Autowired
 	private CategoryDao categoryDao;
+	@Autowired
+	private BlogDao bDao;
 	
-	public int addCategory(CategoryVo cateVo) {
+	public CategoryVo addCategory(CategoryVo cateVo) {
 		System.out.println("CategoryService  >  addCategory");
-		System.out.println(cateVo);
-		int count = categoryDao.addCategory(cateVo);
+		categoryDao.addCategory(cateVo);
 		
-		return count;
+		String id = cateVo.getId();
+		
+		CategoryVo cVo = categoryDao.getCateOne(id);
+		
+		return cVo;
 	}
 	
 	public Map<String,Object> getCategory(String id){
 		System.out.println("CategoryService  >  getCategory");
 		System.out.println(id);
-		BlogDao bDao = new BlogDao();
 		
 		Map<String,Object> bMap = bDao.getBlog(id);
 		
@@ -42,5 +45,13 @@ public class CategoryService {
 		System.out.println(cMap);
 		
 		return cMap;
+	}
+	
+	public List<CategoryVo> getCategoryList(String id){
+		System.out.println("CategoryService  >  getCategoryList");
+		
+		List<CategoryVo> cList = categoryDao.getCategory(id);
+		
+		return cList;
 	}
 }
