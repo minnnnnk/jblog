@@ -4,12 +4,16 @@
 	
 	<select id="getCategory" resultType="CategoryVo" parameterType="String">
 		<![CDATA[
-			select  cateNo
+			select  c.cateNo
 			        ,id
 			        ,cateName
 			        ,description
-			        ,regDate
-			from category
+			        ,p.pCount
+			from category c left outer join (select     count(postNo) pCount
+							                            ,cateNo
+							                    from post
+							                    group by cateNo) p
+			on c.cateNo = p.cateNo
 			where id = #{id}
 		]]>
 	</select>

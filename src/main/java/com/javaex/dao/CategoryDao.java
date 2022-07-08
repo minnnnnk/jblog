@@ -1,5 +1,7 @@
 package com.javaex.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -12,11 +14,11 @@ public class CategoryDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public CategoryVo getCategory(String id){
+	public List<CategoryVo> getCategory(String id){
 		System.out.println("CategoryDao > getCategory");
-		CategoryVo cVo = sqlSession.selectOne("category.getCategory", id);
+		List<CategoryVo>  cList = sqlSession.selectList("category.getCategory", id);
 		
-		return cVo;
+		return cList;
 	}
 	
 	public int addCategory(CategoryVo cateVo) {
@@ -26,4 +28,5 @@ public class CategoryDao {
 		System.out.println(count);
 		return count;
 	}
+	
 }

@@ -105,13 +105,13 @@
 <script type="text/javascript">
 	$("#btnAddCate").on("click",function(){
 		var cateName = $("[name='name']").val();		
-		var cateDesc = $("[name='desc']").val();
+		var description = $("[name='desc']").val();
 		var id = "${bMap.ID}";
 		
 		var cateVo = {
 				id : id
 				,cateName : cateName
-				,cateDesc: cateDesc
+				,description: description
 		}
 		console.log(cateVo);
 		
@@ -119,7 +119,7 @@
 			url : "${pageContext.request.contextPath}/{id}/admin/category/add",		
 			type : "post",
 			contentType : "application/json",
-			data : cateVo,
+			data : JSON.stringify(cateVo),
 			dataType : "json",
 			success : function(result){
 				/*성공시 처리해야될 코드 작성*/

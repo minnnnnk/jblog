@@ -53,15 +53,5 @@ public class BlogController {
 		return "redirect:/{id}/admin/basic";
 	}
 	
-	//////////////////카테고리
-	@RequestMapping(value="/{id}/admin/category",method= {RequestMethod.GET,RequestMethod.POST})
-	public String blogCategory(Model model,@PathVariable("id") String id) {
-		System.out.println("BlogController >  blogCategory");
-		
-		Map<String,Object> bMap = blogService.blogList(id);
-		
-		model.addAttribute("bMap", bMap);
-		
-		return "/blog/admin/blog-admin-cate";
-	}
+
 }
