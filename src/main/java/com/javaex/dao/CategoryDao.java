@@ -18,4 +18,12 @@ public class CategoryDao {
 		
 		return cVo;
 	}
+	
+	public int addCategory(CategoryVo cateVo) {
+		System.out.println("CategoryDao > addCategory");
+		System.out.println(cateVo);
+		int count = sqlSession.insert("category.addCategory", cateVo);
+		System.out.println(count);
+		return count;
+	}
 }

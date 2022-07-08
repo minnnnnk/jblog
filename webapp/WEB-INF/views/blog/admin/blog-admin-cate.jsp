@@ -105,7 +105,31 @@
 <script type="text/javascript">
 	$("#btnAddCate").on("click",function(){
 		var cateName = $("[name='name']").val();		
+		var cateDesc = $("[name='desc']").val();
+		var id = "${bMap.ID}";
 		
+		var cateVo = {
+				id : id
+				,cateName : cateName
+				,cateDesc: cateDesc
+		}
+		console.log(cateVo);
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/{id}/admin/category/add",		
+			type : "post",
+			contentType : "application/json",
+			data : cateVo,
+			dataType : "json",
+			success : function(result){
+				/*성공시 처리해야될 코드 작성*/
+				
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+
 	})
 </script>
 

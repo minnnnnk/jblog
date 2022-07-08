@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 import com.javaex.service.UserService;
 import com.javaex.vo.BlogVo;
+import com.javaex.vo.CategoryVo;
 import com.javaex.vo.UserVo;
 
 @Controller
@@ -31,13 +31,13 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/join",method= {RequestMethod.GET,RequestMethod.POST})
-	public String join(@ModelAttribute UserVo userVo,@ModelAttribute BlogVo blogVo) {
+	public String join(@ModelAttribute UserVo userVo,@ModelAttribute BlogVo blogVo,@ModelAttribute CategoryVo cateVo) {
 		System.out.println("UserController  >  join");
 		
 		System.out.println(userVo);
 		
 		
-		userService.userJoin(userVo,blogVo);
+		userService.userJoin(userVo,blogVo,cateVo);
 		
 		return "/user/joinSuccess";
 	}

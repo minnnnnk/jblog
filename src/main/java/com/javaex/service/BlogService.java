@@ -31,29 +31,10 @@ public class BlogService {
 	
 	public Map<String,Object> blogList(String id){
 		System.out.println("BlogService > blogList");
-		//카테고리 다오 불러오기
-		//CategoryDao categoryDao = new CategoryDao();
-		//포스트 다오 불러오기
-		//PostDao postDao = new PostDao();
 		System.out.println(id);
-		
-		
-		//유저값 가져오기
-		
-		//카테고리값 가져오기
-		//CategoryVo cVo = categoryDao.getCategory(id);
-		
-		//int cateNo = cVo.getCateNo();
-		
-		//카테고리 넘버로 포스트값 가져옥;
-		//PostVo pVo = postDao.getPost(cateNo);
 		
 		//블로그값 가져오기
 		Map<String,Object> bMap = blogDao.getBlog(id);
-		
-		//bMap.put("pVo", pVo);
-		//bMap.put("cVo", cVo);
-		//bMap.put("bVo", bVo);
 		
 		System.out.println(bMap);
 		
@@ -63,14 +44,9 @@ public class BlogService {
 	public String basicUpdate(MultipartFile file,BlogVo blogVo) {
 		System.out.println("BlogService > basicUpdaete");
 		
-		if(file.equals(file)) {
-			System.out.println("2");
-			blogDao.basicUpdate2(blogVo);
-			
-			return "";
-		}else {
 			System.out.println("1");
-			String saveDir = "C:\\javaStudy\\workspace_web\\jblog\\webapp\\assets\\images";
+			
+			String saveDir = "C:\\javaStudy\\upload";
 			
 			String orgName = file.getOriginalFilename();
 			
@@ -97,8 +73,9 @@ public class BlogService {
 			}
 			
 			return saveName;
-			}
-		
+			
 	}
+		
+	
 	
 }
