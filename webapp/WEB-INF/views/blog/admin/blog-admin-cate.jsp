@@ -75,6 +75,7 @@
 		</div>	
 		<!-- //content -->
 		
+		<img alt="" src="" >
 		
 		<!-- 개인블로그 푸터 -->
 		<c:import url="/WEB-INF/views/includes/blog-footer.jsp"></c:import>		
@@ -123,20 +124,55 @@ $("#btnAddCate").on("click",function(){
 
 })
 	
-$(".btnCateDel").on("click",function(){
+$("#cateList").on("click",".btnCateDel",function(){
 	console.log("삭제사진클릭");
 	
+	
+	
 	var $this = $(this);
-	console.log($this);
+	
+	var cateNo = $this.attr("id");
+	var pCount = $this.attr("pCount");
+	
+	if(pCount > 0){
+		alert("삭제할수없습니다");
+		
+		return;
+	}
+	
+	$.ajax({
+		url : "${pageContext.request.contextPath}/{id}/admin/category/Delete",		
+		type : "post",
+		contentType : "application/json",
+		data : JSON.stringify(cateNo),
+
+		dataType : "json",
+		success : function(count){
+			/*성공시 처리해야될 코드 작성*/
+			
+			if(count = 1){
+				$("#c"+cateNo).remove();
+			}
+			
+			
+		},
+		error : function(XHR, status, error) {
+			console.error(status + " : " + error);
+		}
+	});
+	
 	
 }) 
 
+
 function fetchList(){
+	var id = '${authUser.id}';
+	
 	$.ajax({
 		url : "${pageContext.request.contextPath}/{id}/admin/category/getList",		
 		type : "post",
-		/* contentType : "application/json",
-		data : {name: ”홍길동"}, */
+		contentType : "application/json",
+		data : JSON.stringify(id),
 
 		dataType : "json",
 		success : function(cList){
@@ -159,20 +195,20 @@ function render(cVo, opt){
 	console.log("render()");
 	
 	var str = '';
-	str += '<tr>';
-	str += '	<td>'+${cVo.cateNo}+'</td>';
-	str += '	<td>'+${cVo.cateName }+'</td>';
-	str += '	<td>'+${cVo.pCount}+'</td>';
-	str += '	<td>'+${cVo.description}+'</td>';
+	str += '<tr id = "c'+cVo.cateNo+'">';
+	str += '	<td>'+cVo.cateNo+'</td>';
+	str += '	<td>'+cVo.cateName +'</td>';
+	str += '	<td>'+cVo.pCount+'</td>';
+	str += '	<td>'+cVo.description+'</td>';
 	str += '    <td class="text-center">';
-	str += '    	<img class="btnCateDel" id="del'+${cVo.cateNo}+'" src="${pageContext.request.contextPath}/assets/images/delete.jpg">';
+	str += '    	<img class="btnCateDel" id="'+cVo.cateNo+'" src="${pageContext.request.contextPath}/assets/images/delete.jpg" pCount = "'+cVo.pCount+'">';
 	str += '	</td>';
 	str += '</tr>';
 	
 	if(opt == "down"){
-        $("#listArea").append(str);   
+        $("#cateList").append(str);   
      }else if(opt == "up"){
-        $("#listArea").prepend(str);
+        $("#cateList").prepend(str);
      }else{
         console.log("opt오류");
      }

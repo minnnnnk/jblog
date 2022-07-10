@@ -2,18 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="post">
 		
-		<select id="getPost" resultType="PostVo" parameterType="String">
+		<select id="getPost" resultType="PostVo" parameterType="int">
 			<![CDATA[
-				select  p.postNo
-				        ,c.cateNo
-				        ,p.postTitle
-				        ,p.postContent
-				        ,p.regDate
-				        ,c.id
-				from post p, category c
-				where p.cateNo = c.cateno
-				and id = #{id}
+					select  p.postNo
+					        ,c.cateNo cateNo
+					        ,p.postTitle
+					        ,p.postContent
+					        ,to_char(p.regDate, 'YY/MM/DD') regDate 
+					        ,c.id
+					from post p, category c
+					where p.cateNo = c.cateno
+					and c.cateNo = #{cateNo}
+					order by p.postNo desc
 			]]>
+		</select>
+		
+		<select id="">
+			
 		</select>
 		
 		<insert id="addPost" parameterType="PostVo">

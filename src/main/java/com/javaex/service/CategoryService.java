@@ -19,17 +19,25 @@ public class CategoryService {
 	@Autowired
 	private BlogDao bDao;
 	
+	//ajax로 작업
 	public CategoryVo addCategory(CategoryVo cateVo) {
 		System.out.println("CategoryService  >  addCategory");
 		categoryDao.addCategory(cateVo);
 		
 		String id = cateVo.getId();
 		
-		CategoryVo cVo = categoryDao.getCateOne(id);
+		List<CategoryVo> cList = categoryDao.getCategory(id);
+		
+		int cateNo = cList.get(0).getCateNo();
+		
+		System.out.println(cateNo);
+		
+		CategoryVo cVo = categoryDao.getCateOne(cateNo);
 		
 		return cVo;
 	}
 	
+	//카테고리 메인에넣기
 	public Map<String,Object> getCategory(String id){
 		System.out.println("CategoryService  >  getCategory");
 		System.out.println(id);
@@ -47,11 +55,25 @@ public class CategoryService {
 		return cMap;
 	}
 	
+	//ajax로 뺴줘서 랜더하려고
 	public List<CategoryVo> getCategoryList(String id){
 		System.out.println("CategoryService  >  getCategoryList");
+		
+		id = id.substring(1,id.length()-1); //"" 빼주는 작업
 		
 		List<CategoryVo> cList = categoryDao.getCategory(id);
 		
 		return cList;
 	}
+	
+	//삭제
+	public int cateDelete(int cateNo) {
+		System.out.println("CategoryService  >  cateDelete");
+	  
+		int count = categoryDao.cateDelete(cateNo);
+	  
+		return count;
+	}
+	
+	 
 }

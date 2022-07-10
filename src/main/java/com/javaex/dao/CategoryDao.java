@@ -21,9 +21,9 @@ public class CategoryDao {
 		return cList;
 	}
 	
-	public CategoryVo getCateOne(String id) {
+	public CategoryVo getCateOne(int cateNo) {
 		System.out.println("CategoryDao > getCateOne");
-		CategoryVo cVo = sqlSession.selectOne("category.getCategory",id);
+		CategoryVo cVo = sqlSession.selectOne("category.getCateone",cateNo);
 		
 		return cVo;
 	}
@@ -36,4 +36,9 @@ public class CategoryDao {
 		return count;
 	}
 	
+	public int cateDelete(int cateNo) {
+		System.out.println("CategoryDao > cateDelete");
+		int count = sqlSession.delete("category.cateDelete",cateNo);
+		return count;
+	}
 }

@@ -14,9 +14,9 @@ public class PostDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<PostVo> getPost(String id){
+	public List<PostVo> getPost(int cateNo){
 		System.out.println("PostDao > getPost");
-		List<PostVo> pList = sqlSession.selectList("post.getPost", id);
+		List<PostVo> pList = sqlSession.selectList("post.getPost", cateNo);
 		
 		return pList;
 	}

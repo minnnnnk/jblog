@@ -32,37 +32,34 @@ public class CategoryController {
 		return "/blog/admin/blog-admin-cate";
 	}
 	
+	/////////////카테고리추가
 	@ResponseBody
 	@RequestMapping(value="/{id}/admin/category/add", method= {RequestMethod.GET,RequestMethod.POST})
 	public CategoryVo cateAdd(@RequestBody CategoryVo cateVo) {
 		System.out.println("CategoryController > cateAdd");
 		
 		CategoryVo cVo = categoryService.addCategory(cateVo);
-		
+		System.out.println(cVo);
 		return cVo;
 	}
 	
-	@RequestMapping(value="/{id}/admin/writeForm",method= {RequestMethod.GET,RequestMethod.POST})
-	public String writeForm(Model model,@PathVariable("id") String id) {
-		System.out.println("CategoryController > writeForm");
-		
-		Map<String,Object> cMap = categoryService.getCategory(id);
-		System.out.println(cMap);
-		model.addAttribute("bMap", cMap.get("bMap"));
-		model.addAttribute("cList", cMap.get("cList"));
-		
-		return "/blog/admin/blog-admin-write";
-	}
-	
+	/////////////////////////////리스트뽑기
 	@ResponseBody
 	@RequestMapping(value="/{id}/admin/category/getList",method= {RequestMethod.GET,RequestMethod.POST})
-	public List<CategoryVo> cateList(@PathVariable("id") String id) {
+	public List<CategoryVo> cateList(@RequestBody String id) {
 		System.out.println("CategoryController > cateList(ajax)");
-		
 		List<CategoryVo> cList = categoryService.getCategoryList(id);
-		
 		return cList;
 	}
 	
+	//////////////카테고리 삭제
+	@ResponseBody
+	@RequestMapping(value="/{id}/admin/category/Delete",method= {RequestMethod.GET,RequestMethod.POST})
+	public int cateDelete(@RequestBody int cateNo) {
+		System.out.println("CategoryController > cateDelete(ajax)");
+		int count =categoryService.cateDelete(cateNo);
+		
+		return count;
+	}
 	
 }

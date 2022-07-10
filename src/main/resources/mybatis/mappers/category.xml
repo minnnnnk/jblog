@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="category">
 	
+	
 	<select id="getCategory" resultType="CategoryVo" parameterType="String">
 		<![CDATA[
 			select  c.cateNo cateNo
@@ -20,12 +21,38 @@
 		]]>
 	</select>
 	
+	<select id="getCateone" resultType="CategoryVo" parameterType="int">
+		<![CDATA[
+			select  c.cateNo cateNo
+			        ,id
+			        ,cateName
+			        ,description
+			        ,c.regDate
+			        ,p.pCount
+			from category c left outer join (select     count(postNo) pCount
+							                            ,cateNo
+							                    from post
+							                    group by cateNo) p
+			on c.cateNo = p.cateNo
+			where c.cateNo = #{cateNo}
+			order by cateNo desc
+		]]>
+	</select>
+	
 	<insert id="addCategory" parameterType="CategoryVo">
 		<![CDATA[
 			insert into category
 			values(seq_category_no.nextval,#{id},#{cateName},#{description},sysdate)
 		]]>
 	</insert>
+	
+	
+	<delete id="cateDelete" parameterType="int">
+		<![CDATA[
+			delete category
+			where cateNo = #{cateNo}	
+		]]>
+	</delete> 
 	
 	
 </mapper>

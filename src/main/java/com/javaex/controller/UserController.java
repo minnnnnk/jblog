@@ -23,13 +23,13 @@ public class UserController {
 	private UserService userService;
 	
 	
-	/////////////회원가입
+	/////////////회원가입폼
 	@RequestMapping(value="/joinForm",method= {RequestMethod.GET,RequestMethod.POST})
 	public String joinForm() {
 		System.out.println("UserController  >  joinForm");
 		return "/user/joinForm";
 	}
-	
+	//////////////////회원가입
 	@RequestMapping(value="/join",method= {RequestMethod.GET,RequestMethod.POST})
 	public String join(@ModelAttribute UserVo userVo,@ModelAttribute BlogVo blogVo,@ModelAttribute CategoryVo cateVo) {
 		System.out.println("UserController  >  join");
@@ -80,7 +80,7 @@ public class UserController {
 		
 		
 	}
-	
+	/////////////////로그아웃ㄴ
 	
 	@RequestMapping(value="/logout",method= {RequestMethod.GET,RequestMethod.POST})
 	public String logout(HttpSession session) {

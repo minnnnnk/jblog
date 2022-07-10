@@ -31,7 +31,7 @@ public class BlogService {
 	@Autowired
 	private PostDao postDao;
 	
-	public Map<String,Object> blogList(String id){
+	public Map<String,Object> blogList(String id, int cateNo){
 		System.out.println("BlogService > blogList");
 		System.out.println(id);
 		
@@ -40,7 +40,7 @@ public class BlogService {
 		
 		List<CategoryVo> cList = cateDao.getCategory(id);
 		
-		List<PostVo> pList =  postDao.getPost(id);
+		List<PostVo> pList = postDao.getPost(cateNo);
 		
 		bMap.put("cList", cList);
 		bMap.put("pList", pList);
@@ -49,6 +49,20 @@ public class BlogService {
 		
 		return bMap;
 	}
+	
+	public Map<String,Object> blogBasic(String id){
+		System.out.println("BlogService > blogList");
+		System.out.println(id);
+		
+		//블로그값 가져오기
+		Map<String,Object> bMap = blogDao.getBlog(id);
+		
+		System.out.println(bMap);
+		
+		return bMap;
+	}
+	
+
 	
 	public String basicUpdate(MultipartFile file,BlogVo blogVo) {
 		System.out.println("BlogService > basicUpdaete");

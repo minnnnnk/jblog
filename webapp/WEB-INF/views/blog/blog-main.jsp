@@ -40,7 +40,7 @@
 					<ul id="cateList" class="text-left">
 					
 					<c:forEach items="${cList}" var="cList">
-						<li><a href="$}">${cList.cateName }</a></li>
+						<li><a href="${pageContext.request.contextPath}/{id}?cateNo=${cList.cateNo}">${cList.cateName}</a></li>
 					</c:forEach>	
 					</ul>
 				</div>
