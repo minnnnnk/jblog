@@ -31,19 +31,25 @@ public class BlogService {
 	@Autowired
 	private PostDao postDao;
 	
-	public Map<String,Object> blogList(String id, int cateNo){
+	public Map<String,Object> blogList(String id, int cateNo, int postNo){
 		System.out.println("BlogService > blogList");
 		System.out.println(id);
-		
+		System.out.println(cateNo);
 		//블로그값 가져오기
 		Map<String,Object> bMap = blogDao.getBlog(id);
-		System.out.println(bMap);
 		List<CategoryVo> cList = cateDao.getCategory(id);
 		
 		List<PostVo> pList = postDao.getPost(cateNo);
-		System.out.println(pList);
+		
+		if(pList.size() == 0) {
+			
+			pList = null;
+		}
+		
+		PostVo pVo = postDao.maingetPost(postNo);
 		bMap.put("cList", cList);
 		bMap.put("pList", pList);
+		bMap.put("pVo", pVo);
 		
 		System.out.println(bMap);
 		

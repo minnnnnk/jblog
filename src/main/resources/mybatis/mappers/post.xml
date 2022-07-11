@@ -17,8 +17,17 @@
 			]]>
 		</select>
 		
-		<select id="">
-			
+		<select id="maingetPost" resultType="PostVo" parameterType="int">
+			<![CDATA[
+					select  p.postNo
+					        ,c.cateNo cateNo
+					        ,p.postTitle
+					        ,p.postContent
+					        ,to_char(p.regDate, 'YY/MM/DD') regDate 
+					from post p, category c
+					where p.cateNo = c.cateno
+					and p.postNo = #{postNo}
+			]]>
 		</select>
 		
 		<insert id="addPost" parameterType="PostVo">

@@ -21,6 +21,13 @@ public class PostDao {
 		return pList;
 	}
 	
+	public PostVo maingetPost(int postNo) {
+		System.out.println("PostDao > maingetPost");
+		PostVo pVo = sqlSession.selectOne("post.maingetPost", postNo);
+		
+		return pVo;
+	}
+	
 	public int addPost(PostVo postVo) {
 		System.out.println("PostDao > addPost");
 		

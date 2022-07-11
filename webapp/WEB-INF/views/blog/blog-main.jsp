@@ -48,18 +48,36 @@
 			<!-- profilecate_area -->
 			
 			<div id="post_area">
-					<div id="postBox" class="clearfix">
-							<div id="postTitle" class="text-left"><strong>${pList[0].postTitle}</strong></div>
-							<div id="postDate" class="text-left"><strong>${pList[0].regDate}</strong></div>
-							<div id="postNick">${bMap.USERNAME}(${bMap.ID})님</div>
-					</div>
-					
 				
-					<div id="post" >
-						${pList[0].postContent}
-					</div>
-					
-					
+					<c:choose>
+						<c:when test="${pList == null}">
+							<div id="postBox" class="clearfix">
+									<div id="postTitle" class="text-left"><strong>등록된 글이 없습니다.</strong></div>
+									<div id="postDate" class="text-left"><strong></strong></div>
+									<div id="postNick"></div>
+							</div>
+						</c:when>
+						<c:when test="${request.param.postNo == 0 or request.param.postNo == null}">
+							<div id="postBox" class="clearfix">
+									<div id="postTitle" class="text-left"><strong>${pList[0].postTitle}</strong></div>
+									<div id="postDate" class="text-left"><strong>${pList[0].regDate}</strong></div>
+									<div id="postNick">${bMap.USERNAME}(${bMap.ID})님</div>
+							</div>
+							<div id="post" >
+								${pList[0].postContent}
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div id="postBox" class="clearfix">
+									<div id="postTitle" class="text-left"><strong>${pVo.postTitle}</strong></div>
+									<div id="postDate" class="text-left"><strong>${pVo.regDate}</strong></div>
+									<div id="postNick">${bMap.USERNAME}(${bMap.ID})님</div>
+							</div>
+							<div id="post" >
+								${pVo.postContent}
+							</div>
+						</c:otherwise>
+					</c:choose>
 					<!-- comment -->
 					
 					
@@ -103,12 +121,7 @@
 				<!-- 글이 없는 경우 -->
 				
 					
-						<!-- <div id="postBox" class="clearfix">
-									<div id="postTitle" class="text-left"><strong>등록된 글이 없습니다.</strong></div>
-									<div id="postDate" class="text-left"><strong></strong></div>
-									<div id="postNick"></div>
-						</div>
-					    
+						<!-- 
 						<div id="post" > 
 					</div> -->
 						<div id="list">
@@ -121,7 +134,7 @@
 								
 								<c:forEach items="${pList}" var="pList">
 									<tr>
-										<td class="text-left"><a href="">${pList.postTitle}</a></td>
+										<td class="text-left"><a href="${pageContext.request.contextPath}/${bMap.ID}?cateNo=${pList.cateNo}&postNo=${pList.postNo}">${pList.postTitle}</a></td>
 										<td class="text-right">${pList.regDate}</td>
 									</tr>
 								</c:forEach>

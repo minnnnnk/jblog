@@ -19,7 +19,6 @@ public class BlogDao {
 		System.out.println("BlogDao > blogCreate");
 		
 		int count = sqlSession.insert("blog.blogInsert", blogVo);
-		
 		return count;
 	}
 	
