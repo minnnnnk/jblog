@@ -23,6 +23,7 @@ public class PostDao {
 	
 	public PostVo maingetPost(int postNo) {
 		System.out.println("PostDao > maingetPost");
+		System.out.println(postNo);
 		PostVo pVo = sqlSession.selectOne("post.maingetPost", postNo);
 		
 		return pVo;

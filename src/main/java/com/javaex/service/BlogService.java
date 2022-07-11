@@ -33,8 +33,7 @@ public class BlogService {
 	
 	public Map<String,Object> blogList(String id, int cateNo, int postNo){
 		System.out.println("BlogService > blogList");
-		System.out.println(id);
-		System.out.println(cateNo);
+
 		//블로그값 가져오기
 		Map<String,Object> bMap = blogDao.getBlog(id);
 		List<CategoryVo> cList = cateDao.getCategory(id);
@@ -70,14 +69,20 @@ public class BlogService {
 	
 
 	
-	public String basicUpdate(MultipartFile file,BlogVo blogVo) {
+	public int basicUpdate(MultipartFile file,BlogVo blogVo) {
 		System.out.println("BlogService > basicUpdaete");
-		
-			System.out.println("1");
-			
 			String saveDir = "C:\\javaStudy\\upload";
 			
 			String orgName = file.getOriginalFilename();
+			System.out.println(blogVo);
+			
+			if(file.getSize() == 0) {
+				
+				
+				int count = blogDao.basicUpdate2(blogVo);
+				
+				return count;	
+			}
 			
 			String exName = orgName.substring(orgName.lastIndexOf("."));
 					
@@ -87,7 +92,8 @@ public class BlogService {
 			String filePath = saveDir +"\\"+ saveName;
 			
 			blogVo.setLogoFile(saveName);
-			blogDao.basicUpdate(blogVo);
+			
+			int count = blogDao.basicUpdate(blogVo);
 			
 			try {
 				byte[] fileData = file.getBytes();
@@ -101,7 +107,8 @@ public class BlogService {
 				e.printStackTrace();
 			}
 			
-			return saveName;
+			return count;
+		
 			
 	}
 		

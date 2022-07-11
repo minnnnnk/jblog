@@ -36,6 +36,7 @@ public class BlogDao {
 		
 		return count;
 	}
+	
 	public int basicUpdate2(BlogVo blogVo) {
 		System.out.println("BlogDao > basicUpdate");
 		

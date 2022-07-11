@@ -57,17 +57,7 @@
 									<div id="postNick"></div>
 							</div>
 						</c:when>
-						<c:when test="${request.param.postNo == 0 or request.param.postNo == null}">
-							<div id="postBox" class="clearfix">
-									<div id="postTitle" class="text-left"><strong>${pList[0].postTitle}</strong></div>
-									<div id="postDate" class="text-left"><strong>${pList[0].regDate}</strong></div>
-									<div id="postNick">${bMap.USERNAME}(${bMap.ID})님</div>
-							</div>
-							<div id="post" >
-								${pList[0].postContent}
-							</div>
-						</c:when>
-						<c:otherwise>
+						<c:when test="${param.postNo > 0}">
 							<div id="postBox" class="clearfix">
 									<div id="postTitle" class="text-left"><strong>${pVo.postTitle}</strong></div>
 									<div id="postDate" class="text-left"><strong>${pVo.regDate}</strong></div>
@@ -75,6 +65,16 @@
 							</div>
 							<div id="post" >
 								${pVo.postContent}
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div id="postBox" class="clearfix">
+									<div id="postTitle" class="text-left"><strong>${pList[0].postTitle}</strong></div>
+									<div id="postDate" class="text-left"><strong>${pList[0].regDate}</strong></div>
+									<div id="postNick">${bMap.USERNAME}(${bMap.ID})님</div>
+							</div>
+							<div id="post" >
+								${pList[0].postContent}
 							</div>
 						</c:otherwise>
 					</c:choose>

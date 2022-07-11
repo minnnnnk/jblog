@@ -30,6 +30,13 @@
 			where id = #{id}
 		]]>
 	</update>
+	<update id="blogBasicUpdate2" parameterType="BlogVo">
+		<![CDATA[
+			update blog
+			set blogTitle = #{blogTitle}
+			where id = #{id}
+		]]>
+	</update>
 	
 	
 </mapper>
