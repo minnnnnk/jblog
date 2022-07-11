@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>JBlog</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
-<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery/jquery-1.12.4.js"></script>
 </head>
 
 <body>
@@ -40,7 +40,7 @@
 					<ul id="cateList" class="text-left">
 					
 					<c:forEach items="${cList}" var="cList">
-						<li><a href="${pageContext.request.contextPath}/{id}?cateNo=${cList.cateNo}">${cList.cateName}</a></li>
+						<li><a href="${pageContext.request.contextPath}/${bMap.ID}?cateNo=${cList.cateNo}">${cList.cateName}</a></li>
 					</c:forEach>	
 					</ul>
 				</div>
@@ -58,36 +58,77 @@
 					<div id="post" >
 						${pList[0].postContent}
 					</div>
+					
+					
+					<!-- comment -->
+					
+					
+					<div id="cmt">
+						<form id="cmtAdd">
+							<table border ="1">
+								<colgroup>
+									<col style="">
+									<col style="width: 20%;">
+								</colgroup>
+								
+								<tr>
+									<td>${authUser.userName}</td>
+									<td><input type="text" name="cmtContent" value=""></td>
+									<td><button type="button" class="btn" id="btnCmdAdd">저장</button></td>
+								</tr>
+								
+								
+								<!-- list -->
+								<tr>
+									<td>이름</td>
+									<td>컨텐츠</td>
+									<td>날짜</td>
+								</tr>
+								
+							</table>
+							
+							
+							
+						</form>
+					</div>
+					
+					
+					
 					<!-- //post -->
+					
+					
+					
+					
+					
 				<!-- 글이 없는 경우 -->
 				
-				<!-- <div id="postBox" class="clearfix">
-							<div id="postTitle" class="text-left"><strong>등록된 글이 없습니다.</strong></div>
-							<div id="postDate" class="text-left"><strong></strong></div>
-							<div id="postNick"></div>
-				</div>
-			    
-				<div id="post" >
-				</div> -->
-				
-				<div id="list">
-					<div id="listTitle" class="text-left"><strong>카테고리의 글</strong></div>
-					<table>
-						<colgroup>
-							<col style="">
-							<col style="width: 20%;">
-						</colgroup>
-						
-						<c:forEach items="${pList}" var="pList">
-							<tr>
-								<td class="text-left"><a href="">${pList.postTitle}</a></td>
-								<td class="text-right">${pList.regDate}</td>
-							</tr>
-						</c:forEach>
-						
-						
-					</table>
-				</div>
+					
+						<!-- <div id="postBox" class="clearfix">
+									<div id="postTitle" class="text-left"><strong>등록된 글이 없습니다.</strong></div>
+									<div id="postDate" class="text-left"><strong></strong></div>
+									<div id="postNick"></div>
+						</div>
+					    
+						<div id="post" > 
+					</div> -->
+						<div id="list">
+							<div id="listTitle" class="text-left"><strong>카테고리의 글</strong></div>
+							<table>
+								<colgroup>
+									<col style="">
+									<col style="width: 20%;">
+								</colgroup>
+								
+								<c:forEach items="${pList}" var="pList">
+									<tr>
+										<td class="text-left"><a href="">${pList.postTitle}</a></td>
+										<td class="text-right">${pList.regDate}</td>
+									</tr>
+								</c:forEach>
+								
+								
+							</table>
+						</div>
 				<!-- //list -->
 			</div>
 			<!-- //post_area -->
@@ -104,4 +145,42 @@
 	</div>
 	<!-- //wrap -->
 </body>
+
+<script type="text/javascript">
+$("#btnCmdAdd").on("click",function(){
+	console.log("저장버튼클릭");
+	
+	var userNo = '${authUser.userNo}'
+	var postNo = '${pList[0].postNo}'
+	
+	var cmtContent = $("[name='cmtContent']");
+	
+	var CommentVo = {
+			userNo : userNo
+			, postNo : postNo
+			, cmtContent : cmtContent
+	} 
+	
+		$.ajax({
+		url : "${pageContext.request.contextPath}/{id}/Comment/add",		
+		type : "post",
+		contentType : "application/json",
+		data : JSON.stringify(CommentVo),
+		dataType : "json",
+		success : function(){
+			
+			
+			
+		},
+		error : function(XHR, status, error) {
+			console.error(status + " : " + error);
+		}
+	});
+
+	
+});
+
+
+</script>
+
 </html>

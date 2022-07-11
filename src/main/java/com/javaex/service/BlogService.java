@@ -37,11 +37,11 @@ public class BlogService {
 		
 		//블로그값 가져오기
 		Map<String,Object> bMap = blogDao.getBlog(id);
-		
+		System.out.println(bMap);
 		List<CategoryVo> cList = cateDao.getCategory(id);
 		
 		List<PostVo> pList = postDao.getPost(cateNo);
-		
+		System.out.println(pList);
 		bMap.put("cList", cList);
 		bMap.put("pList", pList);
 		

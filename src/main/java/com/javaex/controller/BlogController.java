@@ -27,7 +27,8 @@ public class BlogController {
 	@RequestMapping(value="/{id}",method= {RequestMethod.GET,RequestMethod.POST})
 	public String blog(Model model
 					   ,@PathVariable("id") String id
-					   ,@RequestParam(value ="cateNo", required = false, defaultValue = "8") int cateNo) {
+					   ,@RequestParam(value ="cateNo", required = false, defaultValue = "0") int cateNo) {
+		
 		System.out.println("BlogController >  blog");
 		
 		Map<String,Object> bMap = blogService.blogList(id, cateNo);
